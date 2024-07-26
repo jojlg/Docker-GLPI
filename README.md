@@ -3,7 +3,7 @@
 
 * my-network
 
-* Port*****:80
+* Port*****
 
 * Volumes
 
