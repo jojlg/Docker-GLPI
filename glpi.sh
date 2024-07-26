@@ -1,12 +1,22 @@
-mkdir glpi
+# Créer le dossier glpi
+mkdir docker-glpi
 
-git clone https://github.com/DiouxX/docker-glpi.git glpi
+# Cloner le dépôt dans un répertoire temporaire
+git clone https://github.com/DiouxX/docker-glpi.git temp-glpi
 
-cd glpi
+# Déplacer les fichiers clonés dans le dossier "docker-glpi"
+mv temp-glpi/* docker-glpi/
+mv temp-glpi/.[!.]* docker-glpi/
 
-# Remplace la version de mariadb,de glpi, ajoute le volume mariadb-glpi,
+# Supprimer le répertoire temporaire
+rm -rf temp-glpi
+
+# Naviguer dans le répertoire "docker-glpi"
+cd docker-glpi
+
+# Remplacer le fichier docker-compose.yml
 cat <<EOL > docker-compose.yml
-version: "3.9"
+version: "3.2"
 
 services:
   # MariaDB Container
@@ -48,7 +58,7 @@ networks:
     external: true
 EOL
 
-# Modifie le Dockerfile
+# Modifier le Dockerfile
 sed -i 's|FROM debian:12.5|FROM debian:latest|' Dockerfile
 
 echo "Le fichier docker-compose.yml et le Dockerfile ont été mis à jour avec succès."
