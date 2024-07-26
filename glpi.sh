@@ -1,18 +1,14 @@
-#!/bin/bash
 
-# Rendre le script exécutable
-chmod +x glpi.sh
-
-# Cloner le dépôt dans un répertoire temporaire
+# Clone le dépôt dans un répertoire temporaire
 git clone https://github.com/DiouxX/docker-glpi.git temp-glpi
 
-# Copier les fichiers du dépôt cloné dans le répertoire de travail
+# Copie les fichiers du dépôt cloné dans le répertoire de travail
 cp -r temp-glpi/* .
 
-# Supprimer le répertoire temporaire
+# Supprime le répertoire temporaire
 rm -rf temp-glpi
 
-# Remplacer le fichier docker-compose.yml
+# Remplace le fichier docker-compose.yml
 cat <<EOL > docker-compose.yml
 version: "3.2"
 
@@ -56,10 +52,10 @@ networks:
     external: true
 EOL
 
-# Modifier le Dockerfile
+# Modifie le Dockerfile
 sed -i 's|FROM debian:12.5|FROM debian:latest|' Dockerfile
 
 echo "Le fichier docker-compose.yml et le Dockerfile ont été mis à jour avec succès."
 
-# Supprimer le script lui-même
+# Supprime le script lui-même
 rm -- "$0"
