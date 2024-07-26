@@ -1,3 +1,10 @@
+# Rendre le script lui-même exécutable
+chmod +x glpi.sh
+
+# Créer les volumes externes
+docker volume create mariadb-glpi
+docker volume create glpi
+
 # Cloner le dépôt dans un répertoire temporaire
 git clone https://github.com/DiouxX/docker-glpi.git temp-glpi
 
@@ -45,7 +52,9 @@ services:
 
 volumes:
   mariadb-glpi:
+    external: true
   glpi:
+    external: true
 
 networks:
   my-network:
@@ -55,7 +64,13 @@ EOL
 # Modifier le Dockerfile
 sed -i 's|FROM debian:12.5|FROM debian:latest|' Dockerfile
 
-echo "Le fichier docker-compose.yml et le Dockerfile ont été mis à jour avec succès."
+# Construire les images Docker (si nécessaire)
+docker-compose build
+
+# Lancer les services Docker Compose
+docker-compose up -d
+
+echo "Les services Docker ont été lancés avec succès."
 
 # Supprimer le script lui-même
 rm -- "$0"
