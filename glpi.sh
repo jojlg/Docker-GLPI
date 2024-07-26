@@ -1,21 +1,13 @@
-# Créer un dossier temporaire pour le clonage
-mkdir glpi-temp
+#!/bin/bash
 
-# Cloner le dépôt dans le dossier temporaire
-git clone https://github.com/DiouxX/docker-glpi.git glpi-temp
+# Cloner le dépôt dans un répertoire temporaire
+git clone https://github.com/DiouxX/docker-glpi.git temp-glpi
 
-# Créer le répertoire de travail "docker-glpi"
-mkdir docker-glpi
+# Copier les fichiers du dépôt cloné dans le répertoire de travail
+cp -r temp-glpi/* .
 
-# Déplacer les fichiers clonés dans le répertoire de travail
-mv glpi-temp/* docker-glpi/
-mv glpi-temp/.* docker-glpi/ 2>/dev/null
-
-# Supprimer le dossier temporaire
-rm -rf glpi-temp
-
-# Naviguer dans le répertoire de travail
-cd docker-glpi
+# Supprimer le répertoire temporaire
+rm -rf temp-glpi
 
 # Remplacer le fichier docker-compose.yml
 cat <<EOL > docker-compose.yml
