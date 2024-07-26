@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Rendre le script exécutable
+chmod +x glpi.sh
+
 # Cloner le dépôt dans un répertoire temporaire
 git clone https://github.com/DiouxX/docker-glpi.git temp-glpi
 
@@ -57,3 +60,6 @@ EOL
 sed -i 's|FROM debian:12.5|FROM debian:latest|' Dockerfile
 
 echo "Le fichier docker-compose.yml et le Dockerfile ont été mis à jour avec succès."
+
+# Supprimer le script lui-même
+rm -- "$0"
