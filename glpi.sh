@@ -1,6 +1,3 @@
-# Rendre le script lui-même exécutable
-chmod +x glpi.sh
-
 # Créer les volumes externes
 docker volume create mariadb-glpi
 docker volume create glpi
