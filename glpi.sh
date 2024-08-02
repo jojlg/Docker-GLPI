@@ -68,6 +68,3 @@ docker-compose build
 docker-compose up -d
 
 echo "Les services Docker ont été lancés avec succès."
-
-# Supprimer le script lui-même
-rm -- "$0"
