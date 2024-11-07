@@ -1,20 +1,17 @@
-# Rendre le script lui-même exécutable
-chmod +x glpi.sh
-
-# Créer les volumes externes
+# Crée les volumes externes
 docker volume create mariadb-glpi
 docker volume create glpi
 
-# Cloner le dépôt dans un répertoire temporaire
+# Clone le dépôt dans un répertoire temporaire
 git clone https://github.com/DiouxX/docker-glpi.git temp-glpi
 
-# Copier les fichiers du dépôt cloné dans le répertoire de travail
+# Copie les fichiers du dépôt cloné dans le répertoire de travail
 cp -r temp-glpi/* .
 
-# Supprimer le répertoire temporaire
+# Supprime le répertoire temporaire
 rm -rf temp-glpi
 
-# Remplacer le fichier docker-compose.yml
+# Remplace le fichier docker-compose.yml
 cat <<EOL > docker-compose.yml
 version: "3.8"
 
@@ -61,17 +58,16 @@ networks:
     external: true
 EOL
 
-# Modifier le Dockerfile
+# Modifie le Dockerfile
 sed -i 's|FROM debian:12.5|FROM debian:latest|' Dockerfile
 
 # Construire les images Docker (si nécessaire)
 docker-compose build
 
-# Lancer les services Docker Compose
+# Lance les services Docker Compose
 docker-compose up -d
 
 echo "Les services Docker ont été lancés avec succès."
 
 # Supprimer le script lui-même
 rm -- "$0"
-
